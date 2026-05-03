@@ -1,10 +1,7 @@
-TARGET := iphone:clang:latest:14.0
+TARGET := iphone:clang:14.5:14.0
 ARCHS := arm64 arm64e
-
-include $(THEOS)/makefiles/common.mk
-
 LIBRARY_NAME = RaveSpyPayload
 RaveSpyPayload_FILES = RaveSpyPayload.m
-RaveSpyPayload_FRAMEWORKS = Foundation CoreLocation UIKit
-
+RaveSpyPayload_FRAMEWORKS = Foundation CoreLocation
+include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/library.mk
