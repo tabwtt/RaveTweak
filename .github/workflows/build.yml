@@ -6,7 +6,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Theos
         run: |
@@ -15,10 +15,13 @@ jobs:
 
       - name: Build
         run: |
+          export THEOS=~/theos
           make
           
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload Result
+        if: success()
+        uses: actions/upload-artifact@v4
         with:
           name: RaveSpyPayload-Dylib
           path: obj/RaveSpyPayload.dylib
+          
