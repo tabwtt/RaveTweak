@@ -8,14 +8,16 @@ jobs:
       - name: Setup Theos
         run: |
           git clone --recursive https://github.com/theos/theos.git ~/theos
-          curl -LO https://github.com/theos/sdks/raw/master/iPhoneOS14.5.sdk.tar.xz
+          curl -L https://github.com/theos/sdks/raw/master/iPhoneOS14.5.sdk.tar.xz -o sdk.tar.xz
           mkdir -p ~/theos/sdks
-          tar -xf iPhoneOS14.5.sdk.tar.xz -C ~/theos/sdks
+          tar -xf sdk.tar.xz -C ~/theos/sdks
           echo "THEOS=~/theos" >> $GITHUB_ENV
       - name: Compile
         run: |
-          make THEOS=~/theos
+          export THEOS=~/theos
+          make
       - name: Done
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: RaveSpyPayload
